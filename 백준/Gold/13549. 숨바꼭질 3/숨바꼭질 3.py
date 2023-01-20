@@ -1,19 +1,22 @@
-from heapq import heappop, heappush
+from collections import deque
 s, target = map(int, input().split())
-wait = [[0, s]]
-Visited = [False for _ in range(100001)]
+arr = [float('inf') for _ in range(100001)]
+arr[s] = 0
+wait = deque([s])
 while wait:
-    val, n = heappop(wait)
-    if n == target:
-        print(val)
-        break
-    if n*2 <= 100000 and not Visited[n*2]:
-        heappush(wait, [val, n*2])
-        Visited[n * 2] = True
-    if n-1 >= 0 and not Visited[n-1]:
-        heappush(wait, [val+1, n-1])
-        Visited[n-1] = True
-    if n+1 <= 100000 and not Visited[n+1]:
-        heappush(wait, [val + 1, n + 1])
-        Visited[n+1] = True
-
+    n = wait.popleft()
+    if n == target: continue
+    val = arr[n]
+    if val >= arr[target]: continue
+    if n-1 >= 0 and arr[n-1] > val + 1:
+        arr[n-1] = val+1
+        wait.append(n-1)
+    if n+1 <= 100000 and arr[n+1] > val + 1:
+        arr[n+1] = val + 1
+        wait.append(n+1)
+    while n <= 100000 and n!=0:
+        if val < arr[n]:
+            arr[n] = val
+            wait.append(n)
+        n *= 2
+print(arr[target])
