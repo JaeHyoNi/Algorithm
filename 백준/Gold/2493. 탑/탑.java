@@ -3,12 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Stack;
 import java.util.StringTokenizer;
-class pair{
-	int x,y;
-	public pair(int x, int y) {
-		this.x = x; this.y = y;
-	}
-}
+
 public class Main {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -17,28 +12,28 @@ public class Main {
 		StringBuilder ans = new StringBuilder();
 		int[] answer = new int[T];
 		Integer[] arr = new Integer[T];
-		Stack<pair> stack = new Stack<pair>(); 
+		Stack<Integer> stack = new Stack<Integer>(); 
 		for(int i=0; i<T; i++) {arr[i]= Integer.parseInt(st.nextToken()); }
 		for(int i=0; i<T; i++) {
-			if(stack.isEmpty()) {stack.add(new pair(i, arr[i]));}
-			else if(stack.peek().y > arr[i]) {
-				answer[i]= stack.peek().x; 
-				stack.add(new pair(i, arr[i]));
+			if(stack.isEmpty()) {stack.add(i);}
+			else if(arr[stack.peek()] > arr[i]) {
+				answer[i]= stack.peek(); 
+				stack.add(i);
 			}
-			else if(stack.peek().y < arr[i]) {
-				pair temp;
-				while(!stack.empty() && stack.peek().y <= arr[i]) {
+			else if(arr[stack.peek()] < arr[i]) {
+				int temp;
+				while(!stack.empty() && arr[stack.peek()] <= arr[i]) {
 					temp = stack.pop();
 					if(stack.empty()) break;
-					answer[temp.x] = stack.peek().x + 1;
+					answer[temp] = stack.peek() + 1;
 				}
-				stack.add(new pair(i, arr[i]));
+				stack.add(i);
 			}
 		}
 		while(!stack.empty()) {
-			int temp = stack.pop().x;
+			int temp = stack.pop();
 			if(stack.empty()) break;
-			answer[temp] = stack.peek().x + 1;
+			answer[temp] = stack.peek() + 1;
 		}
 		for(int i = 0; i< answer.length; i++) {ans.append(answer[i]+" ");}
 		System.out.println(ans.toString());
