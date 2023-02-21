@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main {
+public class Main{
 	static StringBuilder ans = new StringBuilder();
 	static int[] dx= {0, 1, 0, 0}, dy = {1, -1, 1, 0};
 	static int[][] arr;
@@ -9,20 +9,17 @@ public class Main {
 		ans.append('('); 
 		siz /= 2;
 		for(int k=0; k<4; k++) {
-			flag = true;
-			int pre = arr[x][y];
+			int tmp = 0;
 			for(int i=x; i<x+siz; i++) {
 				for(int j=y; j<y+siz; j++) {
-					if(pre != arr[i][j]) {
-						flag = false;
-						break;
-					}
-					pre = arr[i][j];
+					tmp += arr[i][j];
 				}
-				if(!flag) break;
 			}
-			if(!flag) divide(x, y, siz);
-			else ans.append(pre);
+			if(tmp == siz*siz || tmp == 0) {
+				if(tmp == 0) ans.append('0');
+				else ans.append('1');
+			}
+			else divide(x, y, siz);
 			x += siz*dx[k]; y += siz*dy[k];
 		}
 		ans.append(')');
@@ -41,7 +38,6 @@ public class Main {
 		}
 		if(check == N*N) System.out.println(1);
 		else if(check == 0) System.out.println(0);
-		else divide(0, 0, N);
-		System.out.println(ans.toString());
+		else {divide(0, 0, N); System.out.println(ans.toString());}
 	}
 }
