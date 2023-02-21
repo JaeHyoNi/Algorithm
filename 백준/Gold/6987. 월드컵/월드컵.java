@@ -5,7 +5,7 @@ public class Main{
 	static int[] dt1 = {0, 1, 2}, dt2 = {2, 1, 0};
 	static boolean flag;
 	public static void dfs(int t1, int t2) {
-		if(t1 == 5 && t2 == 6) {
+		if(t1 == 5) {
 			for(int i=0; i<6; i++) {for(int j=0; j<3; j++) {if(arr[i][j]!= 0) return;}}
 			flag = true;
 			return;
