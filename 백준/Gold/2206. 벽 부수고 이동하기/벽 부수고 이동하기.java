@@ -8,19 +8,16 @@ import java.util.StringTokenizer;
 public class Main {
 	public static void main(String[] args) throws IOException {
 		int[][][] crush;
-		int[][] arr;
+		char[][] arr;
 		int[] dx = {-1, 0, 1, 0}, dy = {0, 1, 0, -1};
 		int nx, ny, iter = 1;
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(bf.readLine());
 		String tmp;
 		int siz=0, N = Integer.parseInt(st.nextToken()), M = Integer.parseInt(st.nextToken());
-		arr = new int[N][M]; crush = new int[N][M][2];
+		arr = new char[N][M]; crush = new int[N][M][2];
 		for(int i=0; i<N; i++) {
-			tmp = bf.readLine();
-			for(int j=0; j<M; j++) {
-				arr[i][j]=  (int)(tmp.charAt(j) - '0');
-			}
+			arr[i]= bf.readLine().toCharArray(); 
 		}
 		Integer[] n;
 		Queue<Integer[]> wait = new ArrayDeque<Integer[]>();
@@ -35,7 +32,7 @@ public class Main {
 				for(int i=0; i<4; i++) {
 					nx = n[0] + dx[i]; ny = n[1] + dy[i];
 					if(nx < 0 || nx >= N || ny < 0 || ny >= M) continue;
-					if(arr[nx][ny]==1 && n[2] == 0 && crush[nx][ny][1] == 0) {
+					if(arr[nx][ny]=='1' && n[2] == 0 && crush[nx][ny][1] == 0) {
 						if(nx == N-1 && ny == M-1) {
 							System.out.println(iter);
 							System.exit(0);
@@ -44,7 +41,7 @@ public class Main {
 						wait.add(new Integer[] {nx, ny, 1});
 						continue;
 					}
-					if(arr[nx][ny]==0 && crush[nx][ny][n[2]] == 0) {
+					if(arr[nx][ny]=='0' && crush[nx][ny][n[2]] == 0) {
 						if(nx == N-1 && ny == M-1) {
 							System.out.println(iter);
 							System.exit(0);
