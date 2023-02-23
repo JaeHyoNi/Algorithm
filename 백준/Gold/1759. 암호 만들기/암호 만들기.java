@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.*;
 
 public class Main{
@@ -23,11 +24,13 @@ public class Main{
 				dfs(now+1, i+1, select | (1<<arr[i]));
 		}
 	}
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		L = sc.nextInt(); C = sc.nextInt();
+	public static void main(String[] args) throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(bf.readLine());
+		L = Integer.parseInt(st.nextToken()); C = Integer.parseInt(st.nextToken());
 		arr = new int[C];
-		for(int i=0; i<C; i++) arr[i]= sc.next().charAt(0)-'a';
+		st = new StringTokenizer(bf.readLine());
+		for(int i=0; i<C; i++) arr[i]= st.nextToken().charAt(0)-'a';
 		Arrays.sort(arr);
 		jaum ^= moum;
 		dfs(0, 0, 0);
