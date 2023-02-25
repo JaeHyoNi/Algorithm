@@ -1,9 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
-    static int N;
     static char[][] arr;
-    // p1 (좌측 위) , p2 (우측 아래)
     static void draw(int x1, int y1, int x2, int y2){
         if(x2-x1 == 2 && y2 - y1 == 2){
             for(int i = x1; i<= x2; i++){for(int j = y1; j <= y2; j++) arr[i][j] = '*';}
@@ -21,7 +19,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         StringBuilder ans = new StringBuilder();
-        N = sc.nextInt();
+        int N = sc.nextInt();
         arr= new char[N][N];
         for(int i=0; i<N; i++) for(int j=0; j<N; j++) arr[i][j] = ' ';
         draw(0, 0, N-1, N-1);
