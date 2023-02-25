@@ -1,6 +1,7 @@
+import java.io.*;
 import java.util.*;
 
-public class Main {
+public class Main{
     static class p{
         int x, y, z;
         public p(int x, int y, int z) {
@@ -8,17 +9,22 @@ public class Main {
         }
     }
     static int[][][] arr;
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int siz, ans = 0, nx, ny, nz, num=0, M=sc.nextInt(), N=sc.nextInt(), H=sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(bf.readLine());
+        int siz, ans = 0, nx, ny, nz, num=0;
+        int M=Integer.parseInt(st.nextToken());
+        int N=Integer.parseInt(st.nextToken());
+        int H=Integer.parseInt(st.nextToken());
         int[] dx={-1, 0, 1, 0, 0, 0}, dy={0, 1, 0, -1, 0, 0}, dz={0, 0, 0, 0, 1, -1};
         p tmp;
         arr = new int[N][M][H];
         Queue<p> wait = new ArrayDeque<>();
         for(int z=0; z<H; z++){
             for(int i=0; i<N; i++){
+                st = new StringTokenizer(bf.readLine());
                 for(int j=0; j<M; j++){
-                    arr[i][j][z] = sc.nextInt();
+                    arr[i][j][z] =Integer.parseInt(st.nextToken());
                     if(arr[i][j][z] == 0) num += 1;
                     else if(arr[i][j][z] == 1) wait.add(new p(i, j, z));
                 }
