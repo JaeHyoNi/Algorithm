@@ -1,23 +1,46 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
 public class Main {
-    static int[][] arr = new int[102][102];
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int T = sc.nextInt(),N, M ,answer=0,nx,ny;
-        for (int i=0; i<T; i++){
-            N = sc.nextInt(); M = sc.nextInt();
-            for(int x = N; x<N+10; x++){for(int y=M; y<M+10; y++){arr[x][y] = 1;}}
+    static int[] dx = {-1,0, 1, 0}, dy = {0, 1, 0, -1};
+    static int[][] arr = new int[101][101];
+    static int[] xs, ys;
+    static int ans;
+    static int visited[][] =  new int[101][101];
+
+    static void check(int x, int y) {
+        int nx, ny;
+        if(visited[x][y]==1) return;
+        visited[x][y] = 1;
+        for(int i=0; i<4; i++) {
+            nx = x + dx[i]; ny = y + dy[i];
+            if(nx < 0 || nx >100 || ny < 0 || ny > 100) continue;
+            if(arr[nx][ny] == 0) ans += 1;
         }
-        int[] x = {-1, 0, 1, 0}, y = {0, 1, 0, -1};
-        for(int i=1; i<=100; i++){
-            for(int j=1; j<=100; j++){
-                if(arr[i][j] == 1) {
-                    for (int k = 0; k < 4; k++) {
-                        if(arr[i+x[k]][j+y[k]] == 0){answer += 1;}
-                    }
-                }
-            }
+    }
+
+    public static void main(String[] args) throws NumberFormatException, IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        int x, y, N = Integer.parseInt(br.readLine());
+        xs = new int[N]; ys = new int[N];
+        for(int k=0; k<N; k++) {
+            st = new StringTokenizer(br.readLine());
+            x = Integer.parseInt(st.nextToken());
+            y = Integer.parseInt(st.nextToken());
+            xs[k] = x; ys[k] = y;
+            for(int i=x; i<=x+9; i++) {for(int j=y; j<=y+9;j++) {
+                arr[i][j] = 1;
+            }}
         }
-        System.out.println(answer);
+        for(int k=0; k<N; k++) {
+            for(x = xs[k]; x<=xs[k]+9; x++) check(x, ys[k]);
+            for(x = xs[k]; x<=xs[k]+9; x++) check(x, ys[k]+9);
+            for(y = ys[k]; y<=ys[k]+9; y++) check(xs[k], y);
+            for(y = ys[k]; y<=ys[k]+9; y++) check(xs[k]+9, y);
+        }
+        System.out.println(ans);
     }
 }
