@@ -1,9 +1,9 @@
 import java.io.*;
 import java.util.*;
 
-public class Main{
+public class Main {
 	static class p implements Comparable<p>{int to; int val; public p(int to, int val) {this.to=to; this.val=val;}
-
+	
 	@Override
 	public int compareTo(p o) {
 		return this.val - o.val;
@@ -29,12 +29,13 @@ public class Main{
 		wait.offer(new p(s, 0));
 		while(!wait.isEmpty()) {
 			p tmp = wait.poll();
-			if(road[tmp.to] < tmp.val) continue;
-			road[tmp.to]= tmp.val;
-			for(int i=0; i<arr[tmp.to].size(); i++) {
-				p tmp2 = arr[tmp.to].get(i);
-				if(road[tmp.to]+tmp2.val < road[tmp2.to])
-					wait.offer(new p(tmp2.to, road[tmp.to]+ tmp2.val ));
+			int cur = tmp.to;
+			for(int i=0; i<arr[cur].size(); i++) {
+				p tmp2 = arr[cur].get(i);
+				if(arr[cur].get(i).val + tmp.val < road[tmp2.to]) {
+					road[tmp2.to]= tmp2.val + tmp.val;
+					wait.offer(new p(tmp2.to, road[tmp2.to]));
+				}
 			}
 		}
 		StringBuilder sb = new StringBuilder();
