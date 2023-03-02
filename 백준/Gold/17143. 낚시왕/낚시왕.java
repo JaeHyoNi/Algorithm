@@ -25,7 +25,7 @@ public class Main {
             );
         }
         Arrays.sort(sharks);
-        Queue<shark> wait = new ArrayDeque<>();
+        LinkedList<shark> wait = new LinkedList<>();
         HashSet<Integer> visited = new HashSet<Integer>();
         int fx=99999, fy = 0, pre = 0, tx, ans = 0, nx, ny, next, tmppre;
         for(int i=0; i<M; i++){
@@ -36,9 +36,10 @@ public class Main {
             int siz = wait.size();
             visited.clear();
             tx = 101; tmppre = 0;
+            Iterator<shark> iter = wait.iterator();
             for(int i=0; i<siz; i++){
-                shark ns = wait.poll();
-                if(ns.val == pre) { ans += pre; continue;}
+                shark ns = iter.next();
+                if(ns.val == pre) { ans += pre; iter.remove(); continue;}
                 if(R!=1) nx = ns.s % (R*2-2) * dx[ns.d];
                 else nx = 0;
                 while(nx != 0){
@@ -52,9 +53,8 @@ public class Main {
                     else{if(ns.y == C-1){ns.d = 4; continue;} ns.y++; ny--;}
                 }
                 next = ns.x*C + ns.y;
-                if(visited.contains(next)) continue;
+                if(visited.contains(next)) {iter.remove(); continue;}
                 visited.add(next);
-                wait.add(ns);
                 if(ns.y == t && ns.x < tx) {tmppre = ns.val; tx = ns.x;}
             }
             pre = tmppre;
