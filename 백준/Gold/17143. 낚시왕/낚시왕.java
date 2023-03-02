@@ -1,4 +1,6 @@
+import java.io.*;
 import java.util.*;
+
 public class Main {
     static class shark implements Comparable<shark> {
         int x, y, s, d, val;
@@ -6,12 +8,22 @@ public class Main {
         @Override
         public int compareTo(shark o) {return o.val-this.val;}
     }
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int R=sc.nextInt(), C=sc.nextInt(), M=sc.nextInt();
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int R=Integer.parseInt(st.nextToken()), C=Integer.parseInt(st.nextToken()), M=Integer.parseInt(st.nextToken());
         int[] dx = {0, 1, 1, 0, 0}, dy = {0, 0, 0, 1, 1};
         shark[] sharks = new shark[M];
-        for(int i=0; i<M; i++)  sharks[i] = new shark(sc.nextInt()-1, sc.nextInt()-1, sc.nextInt(), sc.nextInt(), sc.nextInt());
+        for(int i=0; i<M; i++)  {
+            st = new StringTokenizer(br.readLine());
+            sharks[i] = new shark(
+                    Integer.parseInt(st.nextToken())-1,
+                    Integer.parseInt(st.nextToken())-1,
+                    Integer.parseInt(st.nextToken()),
+                    Integer.parseInt(st.nextToken()),
+                    Integer.parseInt(st.nextToken())
+            );
+        }
         Arrays.sort(sharks);
         Queue<shark> wait = new ArrayDeque<>();
         HashSet<Integer> visited = new HashSet<Integer>();
@@ -47,6 +59,6 @@ public class Main {
             }
             pre = tmppre;
         }
-        System.out.println(ans);
+        System.out.print(ans);
     }
 }
