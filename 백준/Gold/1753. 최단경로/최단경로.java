@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Main{
+public class Main {
 	static class p implements Comparable<p>{int to; int val; public p(int to, int val) {this.to=to; this.val=val;}
 
 	@Override
@@ -28,14 +28,15 @@ public class Main{
 			int val=Integer.parseInt(st.nextToken());
 			arr[from].add(new p(to, val));
 		}
-		for(p k: arr[s]) wait.add(k);
+		wait.offer(new p(s, 0));
 		while(!wait.isEmpty()) {
 			p tmp = wait.poll();
 			if(road[tmp.to] < tmp.val) continue;
 			road[tmp.to]= tmp.val;
-			for(p k : arr[tmp.to]) {
-				if(road[tmp.to]+ k.val < road[k.to])
-					wait.add(new p(k.to, road[tmp.to]+ k.val ));
+			for(int i=0; i<arr[tmp.to].size(); i++) {
+				p tmp2 = arr[tmp.to].get(i);
+				if(road[tmp.to]+tmp2.val < road[tmp2.to])
+					wait.offer(new p(tmp2.to, road[tmp.to]+ tmp2.val ));
 			}
 		}
 		for(int i=1; i<=V; i++) {
