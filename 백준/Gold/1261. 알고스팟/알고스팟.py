@@ -1,6 +1,6 @@
 from collections import deque
 N, M = map(int, input().split())
-arr, ans = [list(list(map(int, list(input())))) for _ in range(M)], 0
+arr, ans = [list(map(int, list(input()))) for _ in range(M)], 0
 que0, que1 = deque([(0, 0)]), deque()
 dx, dy, arr[0][0] = [-1, 0, 1, 0], [0, 1, 0, -1], -1
 flip = False
@@ -18,4 +18,3 @@ while True:
     que1.clear()
     ans += 1
 print(ans)
-
