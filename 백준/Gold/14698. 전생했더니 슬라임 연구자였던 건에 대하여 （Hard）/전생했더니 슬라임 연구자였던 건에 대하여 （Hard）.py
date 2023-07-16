@@ -1,19 +1,14 @@
-import heapq
 import sys
-mod=1000000007
-for _ in range(int(sys.stdin.readline())):
-    n=int(sys.stdin.readline())
-    e=list(map(int, sys.stdin.readline().split()))
-    ans=1
-    if n==1:
-        print(1)
-        continue
-    q=[]
-    for i in e:
-        heapq.heappush(q,i)
-
-    while len(q)!=1:
-        t = heapq.heappop(q)*heapq.heappop(q)
-        ans*=t
-        heapq.heappush(q,t)
-    print(ans%mod)
+import heapq
+input = sys.stdin.readline
+mod = int(1e9) + 7
+for _ in range(int(input())):
+    n = int(input())
+    ls = list(map(int, input().split()))
+    ans = 1
+    heapq.heapify(ls)
+    for _ in range(n - 1):
+        k = heapq.heappop(ls) * heapq.heappop(ls)
+        heapq.heappush(ls, k)
+        ans *= k % mod
+    print(ans % mod)
